@@ -16,7 +16,17 @@ const app = express();
 
 // Permite que o frontend (React) faça requisições para esta API
 // Em produção, substitua "*" pela URL real do seu frontend
-app.use(cors({ origin: "*" }));
+const allowedOrigins = [
+  "https://frontend-programacao.vercel.app",
+  "http://localhost:5173" // para desenvolvimento local
+];
+
+app.use(cors({ 
+  origin: allowedOrigins,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 // Permite que o Express leia JSON no corpo das requisições
 app.use(express.json());
